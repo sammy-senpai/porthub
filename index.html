@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PortHub — Explore Native Game Ports</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Immediate Theme Engine to avoid FOUC -->
+  <script>
+    (function() {
+      const stored = localStorage.getItem('porthub_theme') || 'system';
+      function applyTheme(theme) {
+        if (theme === 'system') {
+          const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      }
+      applyTheme(stored);
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if ((localStorage.getItem('porthub_theme') || 'system') === 'system') applyTheme('system');
+      });
+    })();
+  </script>
+
+  <style>
+    /* Dark Theme (Default) */
+    :root, [data-theme="dark"] {
+      --bg: #090c10;
+      --card: #131720;
+      --card-hover: #1b202c;
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.06);
+      --warning-border: rgba(245, 158, 11, 0.22);
+      --nav-bg: rgba(9, 12, 16, 0.94);
+      --dropdown-bg: #161b24;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-hover: #f1f5f9;
+      --border: rgba(0, 0, 0, 0.09);
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --warning: #b45309;
+      --warning-bg: rgba(245, 158, 11, 0.1);
+      --warning-border: rgba(245, 158, 11, 0.3);
+      --nav-bg: rgba(248, 250, 252, 0.94);
+      --dropdown-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 40px; transition: background-color 0.2s, color 0.2s; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 16px; }
+
+    .top-bar {
+      position: sticky; top: 0; background: var(--nav-bg); backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; z-index: 50;
+    }
+
+    .brand-title { font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+    .brand-title i { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 14px; position: relative; }
+    .nav-btn { color: var(--text-muted); font-size: 0.95rem; background: none; border: none; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { color: var(--text); }
+
+    /* Theme Switcher Dropdown */
+    .theme-menu {
+      position: absolute; top: calc(100% + 10px); right: 0; background: var(--dropdown-bg);
+      border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      min-width: 140px; padding: 6px; display: none; flex-direction: column; gap: 2px; z-index: 100;
+    }
+    .theme-menu.show { display: flex; }
+    .theme-option {
+      background: none; border: none; padding: 8px 12px; border-radius: var(--radius-sm);
+      color: var(--text); font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; text-align: left;
+    }
+    .theme-option:hover { background: var(--card-hover); }
+    .theme-option.active { color: var(--accent); }
+
+    .feed-header { padding: 18px 0 12px; }
+    .feed-heading { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; }
+    .feed-subheading { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Search & Filter Bar Flexbox */
+    .search-filter-row {
+      display: flex;
+      gap: 10px;
+      margin: 16px 0 14px;
+      position: relative;
+    }
+
+    .search-bar-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .search-bar-wrapper i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.85rem;
+    }
+
+    .search-input {
+      width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 10px 14px 10px 38px; color: var(--text); font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Filter Trigger Button */
+    .filter-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover { background: var(--card-hover); border-color: rgba(255, 255, 255, 0.2); color: var(--text); }
+    .filter-btn.active { background: rgba(99, 102, 241, 0.12); border-color: var(--accent); color: var(--accent); }
+
+    .filter-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: none;
+    }
+    .filter-btn.active .filter-badge-dot { display: block; }
+
+    /* Platform Filters Dropdown Menu */
+    .filter-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--dropdown-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+      min-width: 220px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 60;
+    }
+    .filter-menu.show { display: flex; }
+
+    .filter-menu-item {
+      background: none;
+      border: none;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+    }
+    .filter-menu-item:hover { background: var(--card-hover); }
+    .filter-menu-item.active { color: var(--accent); background: rgba(99, 102, 241, 0.1); }
+    .filter-menu-item i { font-size: 0.75rem; }
+
+    .legal-disclaimer-box {
+      background: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: var(--radius-md);
+      padding: 12px 14px; display: flex; gap: 12px; margin-bottom: 20px; align-items: flex-start;
+    }
+    .legal-disclaimer-box i { color: var(--warning); font-size: 1.15rem; flex-shrink: 0; margin-top: 2px; }
+    .legal-disclaimer-content strong { display: block; font-size: 0.82rem; color: var(--warning); margin-bottom: 2px; }
+    .legal-disclaimer-content p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+
+    .feed-count-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 10px; display: block; }
+    .games-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .game-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 14px; display: flex; gap: 14px; align-items: flex-start; text-decoration: none; color: var(--text);
+      transition: all 0.2s ease; position: relative;
+    }
+    .game-card:hover { background: var(--card-hover); border-color: rgba(255, 255, 255, 0.16); transform: translateY(-1px); }
+
+    .game-icon-frame {
+      width: 64px; height: 64px; border-radius: var(--radius-lg); background: var(--card-hover); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;
+    }
+    .game-icon-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .game-icon-fallback { font-size: 1.8rem; color: var(--text-muted); }
+
+    .game-info { flex: 1; min-width: 0; }
+    .game-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 2px; }
+    .game-title { font-size: 0.98rem; font-weight: 700; line-height: 1.3; overflow-wrap: break-word; word-break: break-word; }
+
+    .ports-badge {
+      font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 99px;
+      background: rgba(99, 102, 241, 0.15); color: var(--accent); white-space: nowrap; flex-shrink: 0;
+    }
+    .game-meta-maintainers { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .game-platform-tags { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; max-height: 44px; overflow: hidden; }
+    .game-platform-tag {
+      font-size: 0.65rem; background: var(--border); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; color: var(--text-muted); white-space: nowrap;
+    }
+    .game-platform-more {
+      font-size: 0.65rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 1px 6px; border-radius: 4px; color: var(--accent); font-weight: 600; white-space: nowrap;
+    }
+
+    .empty-feed {
+      background: var(--card); border: 1px dashed var(--border); border-radius: var(--radius-md);
+      padding: 40px 16px; text-align: center; color: var(--text-muted); display: none; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .empty-feed i { font-size: 2rem; opacity: 0.5; }
+    .empty-feed strong { color: var(--text); font-size: 0.95rem; }
+
+    /* Pagination Styles */
+    .pagination-wrapper {
+      display: flex; justify-content: center; align-items: center; gap: 6px;
+      margin-top: 24px; padding-top: 14px;
+    }
+
+    .pagination-btn {
+      background: var(--card); border: 1px solid var(--border); color: var(--text);
+      border-radius: var(--radius-sm); min-width: 36px; height: 36px; padding: 0 10px;
+      font-size: 0.84rem; font-weight: 600; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; transition: all 0.2s;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--card-hover); border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .pagination-btn.active {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.4; cursor: not-allowed;
+    }
+
+    @media (min-width: 601px) {
+      .container { max-width: 720px; }
+      .games-list { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="brand-title">
+      <i class="fa-solid fa-gamepad"></i>
+      <span>PortHub</span>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" id="themeToggleBtn" title="Change Theme" onclick="toggleThemeMenu(event)">
+        <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+      </button>
+      <div class="theme-menu" id="themeMenu">
+        <button class="theme-option" onclick="setTheme('system')"><i class="fa-solid fa-desktop"></i> System</button>
+        <button class="theme-option" onclick="setTheme('dark')"><i class="fa-solid fa-moon"></i> Dark</button>
+        <button class="theme-option" onclick="setTheme('light')"><i class="fa-solid fa-sun"></i> Light</button>
+      </div>
+
+      <a href="builder.html" class="nav-btn" title="Open JSON Builder"><i class="fa-solid fa-plus"></i> Add Port</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="feed-header">
+      <h1 class="feed-heading">Native Ports</h1>
+      <p class="feed-subheading">Play your favorite classic console games natively on modern hardware.</p>
+
+      <!-- Search Input & Platform Filter Button Row -->
+      <div class="search-filter-row">
+        <div class="search-bar-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search games, ports, or developers..." oninput="handleSearch()" />
+        </div>
+
+        <button class="filter-btn" id="filterBtn" onclick="toggleFilterMenu(event)" title="Filter by Platform">
+          <i class="fa-solid fa-sliders"></i>
+          <span id="filterBtnLabel">Filter</span>
+          <div class="filter-badge-dot"></div>
+        </button>
+
+        <!-- Dropdown Platform List -->
+        <div class="filter-menu" id="filterMenu"></div>
+      </div>
+    </div>
+
+    <div class="legal-disclaimer-box">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div class="legal-disclaimer-content">
+        <strong>Important Notice</strong>
+        <p>This website is not affiliated with the listed projects. You must legally own the original retail game files to use them. Users assume all responsibility for installation and execution outcomes.</p>
+      </div>
+    </div>
+
+    <span class="feed-count-label" id="feedCountLabel">Available Games</span>
+    <div class="games-list" id="gamesList"></div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-wrapper" id="paginationControls"></div>
+
+    <div class="empty-feed" id="emptyFeed">
+      <i class="fa-solid fa-ghost"></i>
+      <strong>No ported games found</strong>
+      <span>Try searching for another title or clear your platform filter.</span>
+    </div>
+  </main>
+
+  <script>
+    // --- Theme Controller ---
+    function updateThemeUI() {
+      const current = localStorage.getItem('porthub_theme') || 'system';
+      const icon = document.getElementById('themeIcon');
+      if (current === 'system') icon.className = 'fa-solid fa-circle-half-stroke';
+      else if (current === 'dark') icon.className = 'fa-solid fa-moon';
+      else icon.className = 'fa-solid fa-sun';
+
+      document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(current));
+      });
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('porthub_theme', theme);
+      if (theme === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      updateThemeUI();
+      document.getElementById('themeMenu').classList.remove('show');
+    }
+
+    function toggleThemeMenu(e) {
+      e.stopPropagation();
+      document.getElementById('filterMenu')?.classList.remove('show');
+      document.getElementById('themeMenu').classList.toggle('show');
+    }
+
+    function toggleFilterMenu(e) {
+      e.stopPropagation();
+      document.getElementById('themeMenu')?.classList.remove('show');
+      document.getElementById('filterMenu').classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      document.getElementById('themeMenu')?.classList.remove('show');
+      document.getElementById('filterMenu')?.classList.remove('show');
+    });
+
+    // --- State and URL Synchronization ---
+    let allGames = [];
+    let selectedPlatform = 'all';
+    let searchQuery = '';
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 6;
+
+    function syncStateFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      currentPage = parseInt(params.get('page'), 10) || 1;
+      selectedPlatform = params.get('platform') || 'all';
+      searchQuery = params.get('q') || '';
+
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.value = searchQuery;
+    }
+
+    function syncStateToURL() {
+      const params = new URLSearchParams();
+      if (currentPage > 1) params.set('page', currentPage);
+      if (selectedPlatform !== 'all') params.set('platform', selectedPlatform);
+      if (searchQuery.trim() !== '') params.set('q', searchQuery);
+
+      const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+      window.history.replaceState({ path: newURL }, '', newURL);
+    }
+
+    function renderIconHtml(iconUrl) {
+      if (!iconUrl || iconUrl.trim() === '') {
+        return `<i class="fa-solid fa-question game-icon-fallback"></i>`;
+      }
+      return `<img src="${iconUrl}" alt="Game Icon" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fa-solid fa-question game-icon-fallback\\'></i>';" />`;
+    }
+
+    async function loadGamesFeed() {
+      updateThemeUI();
+      syncStateFromURL();
+
+      try {
+        const response = await fetch('./games.json');
+        if (response.ok) {
+          allGames = await response.json();
+          
+          // Case-insensitive Alphabetical Sort (A-Z) by game title
+          allGames.sort((a, b) => {
+            const titleA = (a.title || '').trim();
+            const titleB = (b.title || '').trim();
+            return titleA.localeCompare(titleB, undefined, { sensitivity: 'base' });
+          });
+        }
+      } catch (err) {
+        console.warn("Could not load games.json via fetch.", err);
+      }
+
+      setupFilters();
+      renderFeed();
+    }
+
+    // Build platform filter dropdown menu
+    function setupFilters() {
+      const platforms = new Set();
+      allGames.forEach(g => {
+        (g.variants || []).forEach(v => {
+          (v.supportedPlatforms || []).forEach(p => platforms.add(p));
+        });
+      });
+
+      const filterMenu = document.getElementById('filterMenu');
+      const filterBtn = document.getElementById('filterBtn');
+      const filterBtnLabel = document.getElementById('filterBtnLabel');
+
+      // Update button visual state
+      if (selectedPlatform !== 'all') {
+        filterBtn.classList.add('active');
+        filterBtnLabel.textContent = selectedPlatform;
+      } else {
+        filterBtn.classList.remove('active');
+        filterBtnLabel.textContent = 'Platform';
+      }
+
+      let html = `
+        <button class="filter-menu-item ${selectedPlatform === 'all' ? 'active' : ''}" onclick="setFilter('all')">
+          <span>All Platforms</span>
+          ${selectedPlatform === 'all' ? '<i class="fa-solid fa-check"></i>' : ''}
+        </button>
+      `;
+
+      Array.from(platforms).sort().forEach(p => {
+        const isSelected = selectedPlatform === p;
+        html += `
+          <button class="filter-menu-item ${isSelected ? 'active' : ''}" onclick="setFilter('${p}')">
+            <span>${p}</span>
+            ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
+          </button>
+        `;
+      });
+
+      filterMenu.innerHTML = html;
+    }
+
+    function setFilter(platform) {
+      selectedPlatform = platform;
+      currentPage = 1;
+      syncStateToURL();
+      setupFilters();
+      renderFeed();
+      document.getElementById('filterMenu').classList.remove('show');
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+      currentPage = 1;
+      syncStateToURL();
+      renderFeed();
+    }
+
+    function goToPage(page) {
+      currentPage = page;
+      syncStateToURL();
+      renderFeed();
+      document.getElementById('feedCountLabel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function formatPlatformChips(platformsArray) {
+      const MAX_DISPLAY = 4;
+      if (platformsArray.length <= MAX_DISPLAY) {
+        return platformsArray.map(p => `<span class="game-platform-tag">${p}</span>`).join('');
+      }
+
+      const visible = platformsArray.slice(0, MAX_DISPLAY);
+      const remainingCount = platformsArray.length - MAX_DISPLAY;
+      return visible.map(p => `<span class="game-platform-tag">${p}</span>`).join('') +
+        `<span class="game-platform-more">+${remainingCount} more</span>`;
+    }
+
+    function renderFeed() {
+      const container = document.getElementById('gamesList');
+      const emptyBox = document.getElementById('emptyFeed');
+      const countLabel = document.getElementById('feedCountLabel');
+      const paginationBox = document.getElementById('paginationControls');
+
+      // Filtering (games are already sorted A-Z)
+      const filtered = allGames.filter(game => {
+        const gamePlatforms = new Set();
+        (game.variants || []).forEach(v => {
+          (v.supportedPlatforms || []).forEach(p => gamePlatforms.add(p));
+        });
+
+        const matchesPlatform = selectedPlatform === 'all' || gamePlatforms.has(selectedPlatform);
+        const matchesSearch = searchQuery === '' ||
+          (game.title && game.title.toLowerCase().includes(searchQuery)) ||
+          (game.plot && game.plot.toLowerCase().includes(searchQuery)) ||
+          (game.variants || []).some(v => 
+            (v.name && v.name.toLowerCase().includes(searchQuery)) || 
+            (v.maintainer && v.maintainer.toLowerCase().includes(searchQuery))
+          );
+
+        return matchesPlatform && matchesSearch;
+      });
+
+      const totalItems = filtered.length;
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      if (totalItems === 0) {
+        container.innerHTML = '';
+        emptyBox.style.display = 'flex';
+        paginationBox.innerHTML = '';
+        countLabel.textContent = `0 Games Found`;
+        return;
+      }
+
+      emptyBox.style.display = 'none';
+      countLabel.textContent = `${totalItems} Game${totalItems === 1 ? '' : 's'} Available`;
+
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const paginatedGames = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+      container.innerHTML = paginatedGames.map(game => {
+        const gamePlatforms = new Set();
+        const maintainers = [];
+        (game.variants || []).forEach(v => {
+          (v.supportedPlatforms || []).forEach(p => gamePlatforms.add(p));
+          if (v.maintainer) maintainers.push(v.maintainer);
+        });
+
+        const portsCount = (game.variants || []).length;
+        const portBadgeText = portsCount > 1 ? `${portsCount} Ports` : `1 Port`;
+
+        const maintainersText = maintainers.length > 0 
+          ? `by ${Array.from(new Set(maintainers)).join(', ')}` 
+          : 'Community Port';
+
+        const platformPills = formatPlatformChips(Array.from(gamePlatforms));
+
+        return `
+          <a href="game.html?id=${encodeURIComponent(game.id)}" class="game-card">
+            <div class="game-icon-frame">
+              ${renderIconHtml(game.icon)}
+            </div>
+            <div class="game-info">
+              <div class="game-title-row">
+                <span class="game-title">${game.title}</span>
+                <span class="ports-badge">${portBadgeText}</span>
+              </div>
+              <div class="game-meta-maintainers">${maintainersText}</div>
+              <div class="game-platform-tags">${platformPills}</div>
+            </div>
+          </a>
+        `;
+      }).join('');
+
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      const container = document.getElementById('paginationControls');
+      if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let html = '';
+      html += `<button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})"><i class="fa-solid fa-chevron-left"></i></button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+          html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        } else if (i === currentPage - 2 || i === currentPage + 2) {
+          html += `<span style="padding: 0 4px; color: var(--text-muted);">&hellip;</span>`;
+        }
+      }
+
+      html += `<button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})"><i class="fa-solid fa-chevron-right"></i></button>`;
+      container.innerHTML = html;
+    }
+
+    window.addEventListener('popstate', () => {
+      syncStateFromURL();
+      setupFilters();
+      renderFeed();
+    });
+
+    window.addEventListener('DOMContentLoaded', loadGamesFeed);
+  </script>
+</body>
+</html>
