@@ -346,7 +346,7 @@
       if (window.history.length > 1 && document.referrer.includes(window.location.host)) {
         window.history.back();
       } else {
-        window.location.href = 'index.html';
+        window.location.href = 'https://sammy-senpai.github.io/porthub/index.html';
       }
     }
 
@@ -415,7 +415,7 @@
       const targetId = urlParams.get('id');
 
       try {
-        const response = await fetch('./games.json');
+        const response = await fetch('https://sammy-senpai.github.io/porthub/games.json');
         if (response.ok) {
           const catalog = await response.json();
           if (Array.isArray(catalog)) {
