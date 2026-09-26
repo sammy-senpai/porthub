@@ -1,0 +1,219 @@
+[
+  {
+    "id": "ocarina-of-time",
+    "title": "The Legend of Zelda: Ocarina of Time",
+    "icon": "https://media.retroachievements.org/Images/022051.png",
+    "plot": "The young hero Link is guided by the fairy Navi to set out from Kokiri Forest to protect the land of Hyrule from the wicked Gerudo king Ganondorf. By obtaining the three Spiritual Stones and drawing the Master Sword from the Temple of Time, Link travels across seven years to awaken the Seven Sages and seal away the darkness threatening the realm.",
+    "media": [
+        {
+            "type": "video",
+            "thumbnail": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime_image1600w.jpg",
+            "youtubeUrl": "https://youtu.be/eGI-gIMSQMQ"
+        },
+        {
+            "type": "image",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKrqCLfONpE7tKjkgIW3U5gpRViGLqcnZ7YzaVFFLiA&s=10"
+        },
+        {
+            "type": "image",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUSHuVjx3EUuR8LQkCtUND5NL5v5aXtCBFxdRUkAQ2jg&s=10"
+        }
+    ],
+    "defaultVariantId": "shipwright-linkzenic",
+    "variants": [
+      {
+        "id": "shipwright-linkzenic",
+        "name": "Shipwright-Android",
+        "maintainer": "linkzenic",
+        "badge": "Recommended",
+        "supportedPlatforms": [
+          "Android"
+        ],
+        "about": {
+          "summary": "Actively maintained Android port of Ship of Harkinian with touch controls.",
+          "highlights": [
+            "Native 60/120 FPS camera interpolation",
+            "Customizable on-screen touch controls"
+          ],
+          "details": [
+            { "label": "Controls", "value": "Touch + Gamepad" },
+            { "label": "Version", "value": "9.3.2" },
+            { "label": "Requires OS", "value": "Android 7.0+" }
+          ]
+        },
+        "sources": [
+          {
+            "name": "GitHub Releases",
+            "subtext": "Stable APK builds",
+            "badge": "Direct APK",
+            "url": "https://github.com/linkzenic/Shipwright-Android/releases",
+            "icon": "fa-brands fa-github"
+          },
+          {
+            "name": "ROM Checksum Tool",
+            "subtext": "Verify base ROM",
+            "badge": "Utility",
+            "url": "https://ship.equipment/",
+            "icon": "fa-solid fa-circle-check"
+          }
+        ]
+      },
+      {
+        "id": "harbour-shipwright",
+        "name": "Shipwright",
+        "maintainer": "HarbourMasters",
+        "badge": "Upstream",
+        "supportedPlatforms": [
+          "Windows",
+          "Linux",
+          "macOS",
+          "Nintendo Switch"
+        ],
+        "about": {
+          "details": [
+            { "label": "Controls", "value": "Gamepad + Keyboard" },
+            { "label": "Version", "value": "9.2.3" },
+            { "label": "Requires OS", "value": "Modern 64-bit OS" }
+          ]
+        },
+        "sources": [
+          {
+            "name": "GitHub Releases",
+            "subtext": "PC & Switch packages",
+            "badge": "Binaries",
+            "url": "https://github.com/HarbourMasters/Shipwright/releases",
+            "icon": "fa-brands fa-github"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jazz2-native",
+    "title": "Jazz Jackrabbit 2",
+    "icon": "https://raw.githubusercontent.com/deathkiller/jazz2-native/refs/heads/master/Sources/Icons/Vita/Icon.png",
+    "plot": "Jazz pursues his nemesis Devan Shell across time to recover the stolen wedding ring of carrotus and rescue his beloved Eva Earlong in this high-speed 90s platformer.",
+    "media": [
+      {
+        "type": "image",
+        "imageUrl": "https://dl.flathub.org/media/tk/deat/Jazz2Resurrection/f9486f8ca1afda232d4460ca969939ff/screenshots/image-1_1248x702@1.png"
+      }
+    ],
+    "defaultVariantId": "jazz2-resurrection",
+    "variants": [
+      {
+        "id": "jazz2-resurrection",
+        "name": "Jazz² Resurrection",
+        "maintainer": "deathkiller",
+        "badge": "",
+        "supportedPlatforms": [
+          "Android",
+          "Windows",
+          "Linux",
+          "macOS",
+          "iOS",
+          "Nintendo Switch",
+          "Nintendo 64",
+          "Sega Dreamcast",
+          "Nintendo Wii",
+          "Nintendo GameCube",
+          "Nintendo 3DS",
+          "PlayStation Portable",
+          "PlayStation 2",
+          "PlayStation 3",
+          "PlayStation Vita",
+          "Amiga",
+          "Web",
+          "Xbox"
+        ],
+        "about": {
+          "summary": "Jazz² Resurrection is reimplementation of the game Jazz Jackrabbit 2 released in 1998. Supports various versions of the game (Shareware Demo, Holiday Hare '98, The Secret Files and Christmas Chronicles). Also, it partially supports some features of JJ2+ extension and MLLE.",
+          "details": [
+            { "label": "Controls", "value": "Touch + Gamepad" },
+            { "label": "Version", "value": "3.8.0" },
+            { "label": "Requires OS", "value": "Android 5.0+" }
+          ]
+        },
+        "sources": [
+          {
+            "name": "GitHub Releases",
+            "subtext": "",
+            "badge": "",
+            "url": "https://github.com/deathkiller/jazz2/releases",
+            "icon": "fa-brands fa-github"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "simpsons-hit-n-run",
+    "title": "Simpsons: Hit & Run",
+    "icon": "https://raw.githubusercontent.com/Carlox33/The-Simpsons-Hit-and-Run-Android/refs/heads/master/logos/logo1.png",
+    "plot": "Something weird is happening in the town of Springfield and as usual, the Simpsons are right in the middle of it. Tiny cameras disguised as wasps are flying about. Mysterious black vans seem to be spying on the citizens. A new soda appears to be making people crazy. And while all this is going on, Bart Simpson disappears, apparently by a UFO. It's up to Homer and his family to solve the mystery.",
+    "media": [
+      {
+        "type": "video",
+        "thumbnail": "https://static0.srcdn.com/wordpress/wp-content/uploads/2022/08/The-Simpsons-Hit--Run-Futurama.jpg?w=1600&h=900&fit=crop",
+        "youtubeUrl": "https://youtu.be/8fEKsEaBNmA"
+      },
+      {
+        "type": "image",
+        "imageUrl": "https://cdn.mos.cms.futurecdn.net/7PrEEBYcHpTEDPSsLBoErR.png"
+      }
+    ],
+    "defaultVariantId": "port-1",
+    "variants": [
+      {
+        "id": "port-1",
+        "name": "The-Simpsons-Hit-and-Run-Android",
+        "maintainer": "Carlox33",
+        "badge": "Android Native",
+        "supportedPlatforms": [
+          "Android"
+        ],
+        "about": {
+          "details": [
+            { "label": "Controls", "value": "Touch + Gamepad" },
+            { "label": "Version", "value": "0.93" },
+            { "label": "Requires OS", "value": "Android 7.0+" }
+          ]
+        },
+        "sources": [
+          {
+            "name": "GitHub Releases",
+            "subtext": "",
+            "badge": "",
+            "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android/releases",
+            "icon": "fa-brands fa-github"
+          }
+        ]
+      },
+      {
+        "id": "port-1790365098184",
+        "name": "The-Simpsons-Hit-and-Run",
+        "maintainer": "ZenoArrows",
+        "supportedPlatforms": [
+          "Nintendo Switch",
+          "PlayStation Vita"
+        ],
+        "about": {
+          "details": [
+            { "label": "Controls", "value": "Gamepad" },
+            { "label": "Version", "value": "0.6.1" },
+            { "label": "Requires OS", "value": "Custom Firmware" }
+          ]
+        },
+        "sources": [
+          {
+            "name": "GitHub Releases",
+            "subtext": "",
+            "badge": "",
+            "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run/releases",
+            "icon": "fa-brands fa-github"
+          }
+        ]
+      }
+    ]
+  }
+]
