@@ -420,7 +420,7 @@
       syncStateFromURL();
 
       try {
-        const response = await fetch('./games.json');
+        const response = await fetch('/games.json');
         if (response.ok) {
           allGames = await response.json();
           
