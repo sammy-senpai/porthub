@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PortHub — Game Ports</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Immediate Theme Engine -->
+  <script>
+    (function() {
+      const stored = localStorage.getItem('porthub_theme') || 'system';
+      function applyTheme(theme) {
+        if (theme === 'system') {
+          const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      }
+      applyTheme(stored);
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if ((localStorage.getItem('porthub_theme') || 'system') === 'system') applyTheme('system');
+      });
+    })();
+  </script>
+
+  <style>
+    /* Dark Theme */
+    :root, [data-theme="dark"] {
+      --bg: #090c10;
+      --card: #131720;
+      --card-hover: #1b202c;
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.06);
+      --warning-border: rgba(245, 158, 11, 0.22);
+      --nav-bg: rgba(9, 12, 16, 0.94);
+      --dropdown-bg: #161b24;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-hover: #f1f5f9;
+      --border: rgba(0, 0, 0, 0.09);
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --warning: #b45309;
+      --warning-bg: rgba(245, 158, 11, 0.1);
+      --warning-border: rgba(245, 158, 11, 0.3);
+      --nav-bg: rgba(248, 250, 252, 0.94);
+      --dropdown-bg: #ffffff;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 30px; transition: background-color 0.2s, color 0.2s; }
+    .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 16px; }
+
+    .top-bar {
+      position: sticky; top: 0; background: var(--nav-bg); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; z-index: 50;
+    }
+    .nav-btn { color: var(--text-muted); font-size: 1.1rem; background: none; border: none; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { color: var(--text); }
+    .brand-title { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
+    .brand-title i { color: var(--accent); }
+
+    .top-actions { display: flex; align-items: center; gap: 14px; position: relative; }
+
+    /* Theme Switcher Dropdown */
+    .theme-menu {
+      position: absolute; top: calc(100% + 10px); right: 30px; background: var(--dropdown-bg);
+      border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      min-width: 140px; padding: 6px; display: none; flex-direction: column; gap: 2px; z-index: 100;
+    }
+    .theme-menu.show { display: flex; }
+    .theme-option {
+      background: none; border: none; padding: 8px 12px; border-radius: var(--radius-sm);
+      color: var(--text); font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; text-align: left;
+    }
+    .theme-option:hover { background: var(--card-hover); }
+    .theme-option.active { color: var(--accent); }
+
+    .app-profile { display: flex; align-items: center; gap: 16px; padding: 20px 0 14px; }
+    .app-icon-wrapper {
+      width: 76px; height: 76px; border-radius: var(--radius-lg); background: var(--card-hover); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+    .app-icon-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .app-icon-fallback { font-size: 2rem; color: var(--text-muted); }
+    .app-meta { flex: 1; min-width: 0; }
+    .app-title { font-size: 1.4rem; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em; }
+
+    .platform-chips-bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 16px; }
+    .platform-chip {
+      background: var(--card); border: 1px solid var(--border); border-radius: 99px;
+      padding: 4px 12px; font-size: 0.74rem; font-weight: 600; color: var(--text-muted); display: inline-flex; align-items: center;
+    }
+
+    .legal-disclaimer-box {
+      background: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: var(--radius-md);
+      padding: 14px; display: flex; gap: 12px; margin-bottom: 24px; align-items: flex-start;
+    }
+    .legal-disclaimer-box i { color: var(--warning); font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+    .legal-disclaimer-content strong { display: block; font-size: 0.86rem; color: var(--warning); margin-bottom: 4px; }
+    .legal-disclaimer-content p { font-size: 0.79rem; color: var(--text-muted); line-height: 1.45; }
+
+    .section-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .media-info-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; line-height: 1.4; }
+    .media-info-label i { color: var(--accent); font-size: 0.8rem; }
+
+    .media-scroller { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; margin-bottom: 24px; -webkit-overflow-scrolling: touch; }
+    .media-scroller::-webkit-scrollbar { display: none; }
+
+    .media-card {
+      flex: 0 0 250px; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--border);
+      border-radius: var(--radius-md); scroll-snap-align: start; overflow: hidden; position: relative; cursor: pointer; display: block;
+    }
+    .media-card img, .media-card video, .media-card iframe { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; }
+
+    .video-play-overlay {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.3); transition: opacity 0.2s ease; pointer-events: none; z-index: 2;
+    }
+    .video-play-overlay.hidden { opacity: 0; }
+    .play-circle {
+      width: 48px; height: 48px; border-radius: 50%; background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem; padding-left: 3px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+    .video-fallback-poster {
+      width: 100%; height: 100%; background: linear-gradient(135deg, #1e1b4b, #0f172a);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-fallback-poster i { font-size: 2.5rem; color: rgba(255, 255, 255, 0.2); }
+
+    .no-media-box {
+      width: 100%; background: var(--card); border: 1px dashed var(--border); border-radius: var(--radius-md);
+      padding: 30px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; color: var(--text-muted); margin-bottom: 24px; gap: 8px;
+    }
+    .no-media-box i { font-size: 1.8rem; opacity: 0.6; }
+    .no-media-box span { font-size: 0.85rem; font-weight: 500; }
+
+    .plot-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; }
+    .plot-card p { font-size: 0.88rem; color: var(--text); line-height: 1.6; }
+
+    .fork-section { margin-bottom: 24px; }
+    .fork-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .fork-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 14px; display: flex; align-items: flex-start; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; text-align: left; width: 100%;
+    }
+    .fork-card:hover { background: var(--card-hover); border-color: rgba(255, 255, 255, 0.16); }
+    .fork-card.active { background: rgba(99, 102, 241, 0.1); border-color: var(--accent); }
+    .fork-card.single-port { cursor: default; background: var(--card); border-color: var(--border); }
+
+    .fork-main { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+    .fork-radio {
+      width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--text-muted);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.2s ease;
+    }
+    .fork-card.active .fork-radio { border-color: var(--accent); }
+    .fork-card.active .fork-radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+    .fork-title-group strong { font-size: 0.95rem; color: var(--text); display: block; line-height: 1.25; }
+    .fork-title-group .fork-maintainer { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; display: block; }
+    .fork-platforms-list { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .fork-platform-tag { font-size: 0.68rem; background: var(--border); border: 1px solid var(--border); padding: 2px 7px; border-radius: 6px; color: var(--text-muted); font-weight: 500; }
+    .fork-badge { font-size: 0.68rem; padding: 2px 8px; border-radius: 99px; background: var(--border); color: var(--text-muted); font-weight: 600; white-space: nowrap; align-self: flex-start; }
+    .fork-card.active .fork-badge { background: rgba(99, 102, 241, 0.2); color: var(--accent); }
+
+    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; }
+    .info-card p { font-size: 0.88rem; color: var(--text); margin-bottom: 12px; }
+    .info-card ul { margin: 0 0 16px 18px; font-size: 0.84rem; color: var(--text); }
+    .info-card li { margin-bottom: 6px; }
+
+    .detail-rows-container.has-top-border { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 6px; }
+    .detail-row {
+      display: grid; grid-template-columns: 130px 1fr; column-gap: 12px; align-items: baseline;
+      padding: 8px 0; font-size: 0.82rem; border-bottom: 1px solid var(--border);
+    }
+    .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-label { color: var(--text-muted); font-weight: 500; text-align: left; }
+    .detail-value { font-weight: 600; color: var(--text); text-align: left; word-break: break-word; }
+
+    .download-list { display: flex; flex-direction: column; gap: 10px; }
+    .download-tile {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 14px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: var(--text); transition: background 0.15s ease;
+    }
+    .download-tile:active { background: var(--card-hover); }
+    .source-info { display: flex; align-items: center; gap: 12px; }
+    .source-info i { font-size: 1.4rem; color: var(--accent); width: 24px; text-align: center; }
+    .source-text strong { font-size: 0.9rem; display: block; }
+    .source-text span { font-size: 0.74rem; color: var(--text-muted); }
+    .source-badge { font-size: 0.72rem; background: var(--border); padding: 4px 8px; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 500; }
+
+    @media (min-width: 601px) {
+      .container { max-width: 800px; }
+      .fork-grid { grid-template-columns: 1fr 1fr; }
+      .download-list { display: grid; grid-template-columns: 1fr 1fr; }
+      .media-card { flex: 0 0 290px; }
+      .detail-row { grid-template-columns: 150px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <button class="nav-btn" onclick="handleBackNav()"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="brand-title">
+      <i class="fa-solid fa-gamepad"></i>
+      <span>PortHub</span>
+    </div>
+    <div class="top-actions">
+      <button class="nav-btn" id="themeToggleBtn" title="Change Theme" onclick="toggleThemeMenu(event)">
+        <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+      </button>
+      <div class="theme-menu" id="themeMenu">
+        <button class="theme-option" onclick="setTheme('system')"><i class="fa-solid fa-desktop"></i> System</button>
+        <button class="theme-option" onclick="setTheme('dark')"><i class="fa-solid fa-moon"></i> Dark</button>
+        <button class="theme-option" onclick="setTheme('light')"><i class="fa-solid fa-sun"></i> Light</button>
+      </div>
+
+      <button class="nav-btn" onclick="sharePort()"><i class="fa-solid fa-share-nodes"></i></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="app-profile">
+      <div class="app-icon-wrapper" id="appIconWrapper">
+        <i class="fa-solid fa-question app-icon-fallback"></i>
+      </div>
+      <div class="app-meta">
+        <h1 class="app-title" id="appTitle">Loading...</h1>
+      </div>
+    </div>
+
+    <div class="platform-chips-bar" id="platformChips"></div>
+
+    <div class="legal-disclaimer-box">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div class="legal-disclaimer-content">
+        <strong>Assets Not Included (Bring Your Own Game)</strong>
+        <p>You must provide your own legally obtained game files.</p>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <i class="fa-solid fa-photo-film"></i> Screenshots & Gameplay
+    </div>
+    <div class="media-info-label" id="mediaContextLabel">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Media previews show the official game, not this native port.</span>
+    </div>
+
+    <div id="mediaContainer"></div>
+
+    <div id="gamePlotSection" style="display: none;">
+      <div class="section-title">
+        <i class="fa-solid fa-book-open"></i> Game Plot
+      </div>
+      <div class="plot-card">
+        <p id="gamePlotText"></p>
+      </div>
+    </div>
+
+    <div class="fork-section">
+      <div class="section-title">
+        <i class="fa-solid fa-code-branch"></i> Available Ports
+      </div>
+      <div class="fork-grid" id="forkGrid"></div>
+    </div>
+
+    <div class="section-title">
+      <i class="fa-solid fa-circle-info"></i> About This Port
+    </div>
+    <div class="info-card" id="aboutCard">
+      <div id="aboutOptionalContent"></div>
+      <div class="detail-rows-container" id="aboutDetails"></div>
+    </div>
+
+    <div class="section-title">
+      <i class="fa-solid fa-download"></i> Downloads & Sources
+    </div>
+    <div class="download-list" id="downloadList"></div>
+  </main>
+
+  <script>
+    function updateThemeUI() {
+      const current = localStorage.getItem('porthub_theme') || 'system';
+      const icon = document.getElementById('themeIcon');
+      if (current === 'system') icon.className = 'fa-solid fa-circle-half-stroke';
+      else if (current === 'dark') icon.className = 'fa-solid fa-moon';
+      else icon.className = 'fa-solid fa-sun';
+
+      document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(current));
+      });
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('porthub_theme', theme);
+      if (theme === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      updateThemeUI();
+      document.getElementById('themeMenu').classList.remove('show');
+    }
+
+    function toggleThemeMenu(e) {
+      e.stopPropagation();
+      document.getElementById('themeMenu').classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      document.getElementById('themeMenu')?.classList.remove('show');
+    });
+
+    // Smart history back navigation
+    function handleBackNav() {
+      if (window.history.length > 1 && document.referrer.includes(window.location.host)) {
+        window.history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+
+    let activeGameData = null;
+    let currentVariantId = null;
+
+    function detectSourceIcon(iconProp, url, name) {
+      if (iconProp && iconProp.trim() !== '') return iconProp;
+      const combined = `${url || ''} ${name || ''}`.toLowerCase();
+      if (combined.includes('github')) return 'fa-brands fa-github';
+      if (combined.includes('telegram') || combined.includes('t.me')) return 'fa-brands fa-telegram';
+      if (combined.includes('discord')) return 'fa-brands fa-discord';
+      if (combined.includes('steam')) return 'fa-brands fa-steam';
+      if (combined.includes('gitlab')) return 'fa-brands fa-gitlab';
+      if (combined.includes('mega.nz') || combined.includes('mega.io')) return 'fa-solid fa-cloud-arrow-down';
+      if (combined.includes('drive.google')) return 'fa-brands fa-google-drive';
+      if (combined.includes('mediafire')) return 'fa-solid fa-fire';
+      if (combined.includes('.apk') || combined.includes('download')) return 'fa-solid fa-download';
+      return 'fa-solid fa-globe';
+    }
+
+    function extractYouTubeId(urlOrId) {
+      if (!urlOrId) return null;
+      const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+      const match = urlOrId.match(regExp);
+      return (match && match[1]) ? match[1] : (urlOrId.length === 11 ? urlOrId : null);
+    }
+
+    function renderAppIcon(iconUrl) {
+      const wrapper = document.getElementById('appIconWrapper');
+      if (!iconUrl) {
+        wrapper.innerHTML = `<i class="fa-solid fa-question app-icon-fallback"></i>`;
+        return;
+      }
+      const img = new Image();
+      img.className = 'app-icon-img';
+      img.alt = 'App Icon';
+      img.src = iconUrl;
+      img.onload = () => { wrapper.innerHTML = ''; wrapper.appendChild(img); };
+      img.onerror = () => { wrapper.innerHTML = `<i class="fa-solid fa-question app-icon-fallback"></i>`; };
+    }
+
+    function toggleDirectVideo(videoId, overlayId) {
+      const video = document.getElementById(videoId);
+      const overlay = document.getElementById(overlayId);
+      if (!video) return;
+      if (video.paused) { video.play(); overlay.classList.add('hidden'); }
+      else { video.pause(); overlay.classList.remove('hidden'); }
+    }
+
+    function playYouTubeEmbed(containerId, youtubeId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1&controls=0&playsinline=1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      `;
+    }
+
+    async function loadData() {
+      updateThemeUI();
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetId = urlParams.get('id');
+
+      try {
+        const response = await fetch('./games.json');
+        if (response.ok) {
+          const catalog = await response.json();
+          if (Array.isArray(catalog)) {
+            activeGameData = catalog.find(g => g.id === targetId) || catalog[0];
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load games.json via fetch.", err);
+      }
+
+      if (!activeGameData) return;
+
+      document.title = `${activeGameData.title || 'PortHub'} — Game Ports`;
+      document.getElementById('appTitle').textContent = activeGameData.title || 'Untitled Game';
+
+      renderAppIcon(activeGameData.icon);
+
+      const allPlatforms = new Set();
+      (activeGameData.variants || []).forEach(v => {
+        (v.supportedPlatforms || []).forEach(p => allPlatforms.add(p));
+      });
+
+      const platformChipsContainer = document.getElementById('platformChips');
+      if (allPlatforms.size > 0) {
+        platformChipsContainer.style.display = 'flex';
+        platformChipsContainer.innerHTML = Array.from(allPlatforms).map(p => `
+          <span class="platform-chip">${p}</span>
+        `).join('');
+      } else {
+        platformChipsContainer.style.display = 'none';
+      }
+
+      if (activeGameData.plot && activeGameData.plot.trim() !== '') {
+        document.getElementById('gamePlotText').textContent = activeGameData.plot;
+        document.getElementById('gamePlotSection').style.display = 'block';
+      }
+
+      renderMediaCarousel(activeGameData.media || []);
+
+      currentVariantId = activeGameData.defaultVariantId || (activeGameData.variants && activeGameData.variants[0]?.id);
+      renderForkGrid();
+      renderActiveVariant();
+    }
+
+    function renderMediaCarousel(mediaList) {
+      const container = document.getElementById('mediaContainer');
+      const contextLabel = document.getElementById('mediaContextLabel');
+
+      if (!mediaList || mediaList.length === 0) {
+        contextLabel.style.display = 'none';
+        container.innerHTML = `
+          <div class="no-media-box">
+            <i class="fa-solid fa-photo-film"></i>
+            <span>No media previews available for this game</span>
+          </div>
+        `;
+        return;
+      }
+
+      contextLabel.style.display = 'flex';
+      container.innerHTML = '';
+      
+      const scroller = document.createElement('div');
+      scroller.className = 'media-scroller';
+
+      mediaList.forEach((m, index) => {
+        const card = document.createElement('div');
+        card.className = 'media-card';
+
+        if (m.type === 'video') {
+          const ytId = extractYouTubeId(m.youtubeUrl || m.youtubeId || m.videoUrl);
+          const cardId = `media-video-${index}`;
+          card.id = cardId;
+
+          if (ytId) {
+            card.onclick = () => playYouTubeEmbed(cardId, ytId);
+            
+            const ytImg = document.createElement('img');
+            ytImg.alt = 'Video preview';
+            ytImg.loading = 'lazy';
+            
+            const initialThumbnail = m.thumbnail && m.thumbnail.trim() !== '' 
+              ? m.thumbnail 
+              : `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+
+            ytImg.src = initialThumbnail;
+
+            ytImg.onerror = function() {
+              if (this.src !== `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`) {
+                this.src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+              } else {
+                this.style.display = 'none';
+                const fb = document.createElement('div');
+                fb.className = 'video-fallback-poster';
+                fb.innerHTML = '<i class="fa-solid fa-play"></i>';
+                card.prepend(fb);
+              }
+            };
+
+            card.appendChild(ytImg);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'video-play-overlay';
+            overlay.innerHTML = '<div class="play-circle"><i class="fa-solid fa-play"></i></div>';
+            card.appendChild(overlay);
+
+          } else {
+            const videoId = `video-el-${index}`;
+            const overlayId = `video-ov-${index}`;
+            card.onclick = () => toggleDirectVideo(videoId, overlayId);
+
+            const vid = document.createElement('video');
+            vid.id = videoId;
+            vid.src = m.videoUrl;
+            vid.playsInline = true;
+            vid.preload = 'metadata';
+            vid.loop = true;
+
+            if (m.thumbnail) {
+              const testImg = new Image();
+              testImg.src = m.thumbnail;
+              testImg.onload = () => { vid.poster = m.thumbnail; };
+            }
+
+            card.appendChild(vid);
+
+            const overlay = document.createElement('div');
+            overlay.id = overlayId;
+            overlay.className = 'video-play-overlay';
+            overlay.innerHTML = '<div class="play-circle"><i class="fa-solid fa-play"></i></div>';
+            card.appendChild(overlay);
+          }
+          scroller.appendChild(card);
+
+        } else {
+          const img = document.createElement('img');
+          img.alt = 'Game screenshot';
+          img.loading = 'lazy';
+          img.src = m.imageUrl || '';
+
+          img.onerror = () => {
+            card.style.display = 'none';
+          };
+
+          card.appendChild(img);
+          scroller.appendChild(card);
+        }
+      });
+
+      container.appendChild(scroller);
+    }
+
+    function renderForkGrid() {
+      const container = document.getElementById('forkGrid');
+      const isSingle = (activeGameData.variants || []).length === 1;
+
+      container.innerHTML = (activeGameData.variants || []).map(variant => {
+        const isActive = variant.id === currentVariantId;
+        const badgeHtml = variant.badge ? `<span class="fork-badge">${variant.badge}</span>` : '';
+        const maintainerText = variant.maintainer ? `by ${variant.maintainer}` : 'Community';
+
+        const platformTagsHtml = (variant.supportedPlatforms && variant.supportedPlatforms.length > 0)
+          ? `<div class="fork-platforms-list">
+              ${variant.supportedPlatforms.map(p => `<span class="fork-platform-tag">${p}</span>`).join('')}
+             </div>`
+          : '';
+
+        const radioHtml = isSingle ? '' : `<div class="fork-radio"></div>`;
+        const clickAttr = isSingle ? '' : `onclick="switchVariant('${variant.id}')"`;
+        const extraClasses = isSingle ? 'single-port' : (isActive ? 'active' : '');
+
+        return `
+          <div class="fork-card ${extraClasses}" ${clickAttr}>
+            <div class="fork-main">
+              ${radioHtml}
+              <div class="fork-title-group">
+                <strong>${variant.name}</strong>
+                <span class="fork-maintainer">${maintainerText}</span>
+                ${platformTagsHtml}
+              </div>
+            </div>
+            ${badgeHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function switchVariant(variantId) {
+      if (currentVariantId === variantId) return;
+      currentVariantId = variantId;
+      renderForkGrid();
+      renderActiveVariant();
+    }
+
+    function renderActiveVariant() {
+      const variant = (activeGameData.variants || []).find(v => v.id === currentVariantId);
+      if (!variant) return;
+
+      const about = variant.about || {};
+      const optionalContainer = document.getElementById('aboutOptionalContent');
+      const detailsContainer = document.getElementById('aboutDetails');
+      
+      let optionalHtml = '';
+      const hasSummary = Boolean(about.summary && about.summary.trim() !== '');
+      const hasHighlights = Boolean(about.highlights && about.highlights.length > 0);
+
+      if (hasSummary) optionalHtml += `<p>${about.summary}</p>`;
+      if (hasHighlights) optionalHtml += `<ul>${about.highlights.map(h => `<li>${h}</li>`).join('')}</ul>`;
+
+      optionalContainer.innerHTML = optionalHtml;
+
+      if (hasSummary || hasHighlights) detailsContainer.classList.add('has-top-border');
+      else detailsContainer.classList.remove('has-top-border');
+
+      const detailItems = [];
+      if (variant.supportedPlatforms && variant.supportedPlatforms.length > 0) {
+        detailItems.push({ label: "Platforms", value: variant.supportedPlatforms.join(", ") });
+      }
+      if (about.details && about.details.length > 0) {
+        detailItems.push(...about.details);
+      }
+
+      if (detailItems.length > 0) {
+        detailsContainer.innerHTML = detailItems.map(d => `
+          <div class="detail-row">
+            <span class="detail-label">${d.label}</span>
+            <span class="detail-value">${d.value}</span>
+          </div>
+        `).join('');
+      } else {
+        detailsContainer.innerHTML = '';
+      }
+
+      document.getElementById('downloadList').innerHTML = (variant.sources || []).map(src => {
+        const iconClass = detectSourceIcon(src.icon, src.url, src.name);
+        return `
+          <a href="${src.url || '#'}" target="_blank" class="download-tile">
+            <div class="source-info">
+              <i class="${iconClass}"></i>
+              <div class="source-text">
+                <strong>${src.name}</strong>
+                <span>${src.subtext || ''}</span>
+              </div>
+            </div>
+            ${src.badge ? `<span class="source-badge">${src.badge}</span>` : ''}
+          </a>
+        `;
+      }).join('');
+    }
+
+    function sharePort() {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: window.location.href }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
