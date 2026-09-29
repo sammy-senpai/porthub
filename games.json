@@ -1,219 +1,988 @@
 [
-  {
-    "id": "ocarina-of-time",
-    "title": "The Legend of Zelda: Ocarina of Time",
-    "icon": "https://media.retroachievements.org/Images/022051.png",
-    "plot": "The young hero Link is guided by the fairy Navi to set out from Kokiri Forest to protect the land of Hyrule from the wicked Gerudo king Ganondorf. By obtaining the three Spiritual Stones and drawing the Master Sword from the Temple of Time, Link travels across seven years to awaken the Seven Sages and seal away the darkness threatening the realm.",
-    "media": [
-        {
-            "type": "video",
-            "thumbnail": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime_image1600w.jpg",
-            "youtubeUrl": "https://youtu.be/eGI-gIMSQMQ"
-        },
-        {
-            "type": "image",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKrqCLfONpE7tKjkgIW3U5gpRViGLqcnZ7YzaVFFLiA&s=10"
-        },
-        {
-            "type": "image",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUSHuVjx3EUuR8LQkCtUND5NL5v5aXtCBFxdRUkAQ2jg&s=10"
-        }
-    ],
-    "defaultVariantId": "shipwright-linkzenic",
-    "variants": [
-      {
-        "id": "shipwright-linkzenic",
-        "name": "Shipwright-Android",
-        "maintainer": "linkzenic",
-        "badge": "Recommended",
-        "supportedPlatforms": [
-          "Android"
+    {
+        "id": "ocarina-of-time",
+        "title": "The Legend of Zelda: Ocarina of Time",
+        "icon": "https://media.retroachievements.org/Images/022051.png",
+        "plot": "The young hero Link is guided by the fairy Navi to set out from Kokiri Forest to protect the land of Hyrule from the wicked Gerudo king Ganondorf. By obtaining the three Spiritual Stones and drawing the Master Sword from the Temple of Time, Link travels across seven years to awaken the Seven Sages and seal away the darkness threatening the realm.",
+        "media": [
+            {
+                "type": "video",
+                "thumbnail": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime_image1600w.jpg",
+                "youtubeUrl": "https://youtu.be/eGI-gIMSQMQ"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKrqCLfONpE7tKjkgIW3U5gpRViGLqcnZ7YzaVFFLiA&s=10"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUSHuVjx3EUuR8LQkCtUND5NL5v5aXtCBFxdRUkAQ2jg&s=10"
+            }
         ],
-        "about": {
-          "summary": "Actively maintained Android port of Ship of Harkinian with touch controls.",
-          "highlights": [
-            "Native 60/120 FPS camera interpolation",
-            "Customizable on-screen touch controls"
-          ],
-          "details": [
-            { "label": "Controls", "value": "Touch + Gamepad" },
-            { "label": "Version", "value": "9.3.2" },
-            { "label": "Requires OS", "value": "Android 7.0+" }
-          ]
-        },
-        "sources": [
-          {
-            "name": "GitHub Releases",
-            "subtext": "Stable APK builds",
-            "badge": "Direct APK",
-            "url": "https://github.com/linkzenic/Shipwright-Android/releases",
-            "icon": "fa-brands fa-github"
-          },
-          {
-            "name": "ROM Checksum Tool",
-            "subtext": "Verify base ROM",
-            "badge": "Utility",
-            "url": "https://ship.equipment/",
-            "icon": "fa-solid fa-circle-check"
-          }
+        "defaultVariantId": "shipwright-linkzenic",
+        "variants": [
+            {
+                "id": "shipwright-linkzenic",
+                "name": "Shipwright-Android",
+                "maintainer": "linkzenic",
+                "badge": "Recommended",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "Actively maintained Android port of Ship of Harkinian with touch controls.",
+                    "highlights": [
+                        "Native 60/120 FPS camera interpolation",
+                        "Customizable on-screen touch controls"
+                    ],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "9.3.2"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "Stable APK builds",
+                        "badge": "Direct APK",
+                        "url": "https://github.com/linkzenic/Shipwright-Android/releases",
+                        "icon": "fa-brands fa-github"
+                    },
+                    {
+                        "name": "ROM Checksum Tool",
+                        "subtext": "Verify base ROM",
+                        "badge": "Utility",
+                        "url": "https://ship.equipment/",
+                        "icon": "fa-solid fa-circle-check"
+                    }
+                ]
+            },
+            {
+                "id": "harbour-shipwright",
+                "name": "Shipwright",
+                "maintainer": "HarbourMasters",
+                "badge": "Upstream",
+                "supportedPlatforms": [
+                    "Windows",
+                    "Linux",
+                    "macOS",
+                    "Nintendo Switch"
+                ],
+                "about": {
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Gamepad + Keyboard"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "9.2.3"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Modern 64-bit OS"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "PC & Switch packages",
+                        "badge": "Binaries",
+                        "url": "https://github.com/HarbourMasters/Shipwright/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
         ]
-      },
-      {
-        "id": "harbour-shipwright",
-        "name": "Shipwright",
-        "maintainer": "HarbourMasters",
-        "badge": "Upstream",
-        "supportedPlatforms": [
-          "Windows",
-          "Linux",
-          "macOS",
-          "Nintendo Switch"
+    },
+    {
+        "id": "jazz2-native",
+        "title": "Jazz Jackrabbit 2",
+        "icon": "https://raw.githubusercontent.com/deathkiller/jazz2-native/refs/heads/master/Sources/Icons/Vita/Icon.png",
+        "plot": "Jazz pursues his nemesis Devan Shell across time to recover the stolen wedding ring of carrotus and rescue his beloved Eva Earlong in this high-speed 90s platformer.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://dl.flathub.org/media/tk/deat/Jazz2Resurrection/f9486f8ca1afda232d4460ca969939ff/screenshots/image-1_1248x702@1.png"
+            }
         ],
-        "about": {
-          "details": [
-            { "label": "Controls", "value": "Gamepad + Keyboard" },
-            { "label": "Version", "value": "9.2.3" },
-            { "label": "Requires OS", "value": "Modern 64-bit OS" }
-          ]
-        },
-        "sources": [
-          {
-            "name": "GitHub Releases",
-            "subtext": "PC & Switch packages",
-            "badge": "Binaries",
-            "url": "https://github.com/HarbourMasters/Shipwright/releases",
-            "icon": "fa-brands fa-github"
-          }
+        "defaultVariantId": "jazz2-resurrection",
+        "variants": [
+            {
+                "id": "jazz2-resurrection",
+                "name": "Jazz² Resurrection",
+                "maintainer": "deathkiller",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Android",
+                    "Windows",
+                    "Linux",
+                    "macOS",
+                    "iOS",
+                    "Nintendo Switch",
+                    "Nintendo 64",
+                    "Sega Dreamcast",
+                    "Nintendo Wii",
+                    "Nintendo GameCube",
+                    "Nintendo 3DS",
+                    "PlayStation Portable",
+                    "PlayStation 2",
+                    "PlayStation 3",
+                    "PlayStation Vita",
+                    "Amiga",
+                    "Web",
+                    "Xbox"
+                ],
+                "about": {
+                    "summary": "Jazz² Resurrection is reimplementation of the game Jazz Jackrabbit 2 released in 1998. Supports various versions of the game (Shareware Demo, Holiday Hare '98, The Secret Files and Christmas Chronicles). Also, it partially supports some features of JJ2+ extension and MLLE.",
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "3.8.0"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 5.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/deathkiller/jazz2/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "id": "jazz2-native",
-    "title": "Jazz Jackrabbit 2",
-    "icon": "https://raw.githubusercontent.com/deathkiller/jazz2-native/refs/heads/master/Sources/Icons/Vita/Icon.png",
-    "plot": "Jazz pursues his nemesis Devan Shell across time to recover the stolen wedding ring of carrotus and rescue his beloved Eva Earlong in this high-speed 90s platformer.",
-    "media": [
-      {
-        "type": "image",
-        "imageUrl": "https://dl.flathub.org/media/tk/deat/Jazz2Resurrection/f9486f8ca1afda232d4460ca969939ff/screenshots/image-1_1248x702@1.png"
-      }
-    ],
-    "defaultVariantId": "jazz2-resurrection",
-    "variants": [
-      {
-        "id": "jazz2-resurrection",
-        "name": "Jazz² Resurrection",
-        "maintainer": "deathkiller",
-        "badge": "",
-        "supportedPlatforms": [
-          "Android",
-          "Windows",
-          "Linux",
-          "macOS",
-          "iOS",
-          "Nintendo Switch",
-          "Nintendo 64",
-          "Sega Dreamcast",
-          "Nintendo Wii",
-          "Nintendo GameCube",
-          "Nintendo 3DS",
-          "PlayStation Portable",
-          "PlayStation 2",
-          "PlayStation 3",
-          "PlayStation Vita",
-          "Amiga",
-          "Web",
-          "Xbox"
+    },
+    {
+        "id": "simpsons-hit-n-run",
+        "title": "Simpsons: Hit & Run",
+        "icon": "https://raw.githubusercontent.com/Carlox33/The-Simpsons-Hit-and-Run-Android/refs/heads/master/logos/logo1.png",
+        "plot": "Something weird is happening in the town of Springfield and as usual, the Simpsons are right in the middle of it. Tiny cameras disguised as wasps are flying about. Mysterious black vans seem to be spying on the citizens. A new soda appears to be making people crazy. And while all this is going on, Bart Simpson disappears, apparently by a UFO. It's up to Homer and his family to solve the mystery.",
+        "media": [
+            {
+                "type": "video",
+                "thumbnail": "https://static0.srcdn.com/wordpress/wp-content/uploads/2022/08/The-Simpsons-Hit--Run-Futurama.jpg?w=1600&h=900&fit=crop",
+                "youtubeUrl": "https://youtu.be/8fEKsEaBNmA"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://cdn.mos.cms.futurecdn.net/7PrEEBYcHpTEDPSsLBoErR.png"
+            }
         ],
-        "about": {
-          "summary": "Jazz² Resurrection is reimplementation of the game Jazz Jackrabbit 2 released in 1998. Supports various versions of the game (Shareware Demo, Holiday Hare '98, The Secret Files and Christmas Chronicles). Also, it partially supports some features of JJ2+ extension and MLLE.",
-          "details": [
-            { "label": "Controls", "value": "Touch + Gamepad" },
-            { "label": "Version", "value": "3.8.0" },
-            { "label": "Requires OS", "value": "Android 5.0+" }
-          ]
-        },
-        "sources": [
-          {
-            "name": "GitHub Releases",
-            "subtext": "",
-            "badge": "",
-            "url": "https://github.com/deathkiller/jazz2/releases",
-            "icon": "fa-brands fa-github"
-          }
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "The-Simpsons-Hit-and-Run-Android",
+                "maintainer": "Carlox33",
+                "badge": "Android Native",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "0.93"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            },
+            {
+                "id": "port-1790365098184",
+                "name": "The-Simpsons-Hit-and-Run",
+                "maintainer": "ZenoArrows",
+                "supportedPlatforms": [
+                    "Nintendo Switch",
+                    "PlayStation Vita"
+                ],
+                "about": {
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "0.6.1"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Custom Firmware"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "id": "simpsons-hit-n-run",
-    "title": "Simpsons: Hit & Run",
-    "icon": "https://raw.githubusercontent.com/Carlox33/The-Simpsons-Hit-and-Run-Android/refs/heads/master/logos/logo1.png",
-    "plot": "Something weird is happening in the town of Springfield and as usual, the Simpsons are right in the middle of it. Tiny cameras disguised as wasps are flying about. Mysterious black vans seem to be spying on the citizens. A new soda appears to be making people crazy. And while all this is going on, Bart Simpson disappears, apparently by a UFO. It's up to Homer and his family to solve the mystery.",
-    "media": [
-      {
-        "type": "video",
-        "thumbnail": "https://static0.srcdn.com/wordpress/wp-content/uploads/2022/08/The-Simpsons-Hit--Run-Futurama.jpg?w=1600&h=900&fit=crop",
-        "youtubeUrl": "https://youtu.be/8fEKsEaBNmA"
-      },
-      {
-        "type": "image",
-        "imageUrl": "https://cdn.mos.cms.futurecdn.net/7PrEEBYcHpTEDPSsLBoErR.png"
-      }
-    ],
-    "defaultVariantId": "port-1",
-    "variants": [
-      {
-        "id": "port-1",
-        "name": "The-Simpsons-Hit-and-Run-Android",
-        "maintainer": "Carlox33",
-        "badge": "Android Native",
-        "supportedPlatforms": [
-          "Android"
+    },
+    {
+        "id": "silent-hill",
+        "title": "Silent Hill",
+        "icon": "https://raw.githubusercontent.com/SlickAmogus/silent-hill-decomp/refs/heads/android-port/android_port/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+        "plot": "Harry awakes from a car crash to notice his daughter, Cheryl, vanished. As he searches for her, through the eerie town of Silent Hill, a terrifying descent into the unknown is set.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWJlOGVhOWEtMDgyMi00YWNhLWJkZGQtYmVlY2Y4YzZlMWUxXkEyXkFqcGc@._V1_FMjpg_UX1280_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BOTM3OGM3NzItYTdlNS00MzhiLWJmN2ItZjM2OWY5ZDVlOTJhXkEyXkFqcGc@._V1_FMjpg_UX1187_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BYTE5ZjAxMjMtMmY2ZS00MDkxLWI2NWQtMTg4NzkyODdlOTg5XkEyXkFqcGc@._V1_FMjpg_UX1198_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BYWMzNzUzMGQtMjUwZS00NWI2LWFmOGQtYjBlNzIyYmIwODQwXkEyXkFqcGc@._V1_FMjpg_UX1245_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BMGI4Y2I1NjYtMTYzMy00YzM1LThhNjQtZjA2MGIwYzQ4NDc3XkEyXkFqcGc@._V1_FMjpg_UX1280_.jpg"
+            }
         ],
-        "about": {
-          "details": [
-            { "label": "Controls", "value": "Touch + Gamepad" },
-            { "label": "Version", "value": "0.93" },
-            { "label": "Requires OS", "value": "Android 7.0+" }
-          ]
-        },
-        "sources": [
-          {
-            "name": "GitHub Releases",
-            "subtext": "",
-            "badge": "",
-            "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android/releases",
-            "icon": "fa-brands fa-github"
-          }
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "silent-hill-decomp",
+                "maintainer": "SlickAmogus",
+                "badge": "Beta",
+                "supportedPlatforms": [
+                    "Windows",
+                    "macOS",
+                    "Linux",
+                    "Android",
+                    "iOS",
+                    "Xbox"
+                ],
+                "about": {
+                    "summary": "",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": ""
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 5.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/SlickAmogus/silent-hill-decomp/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
         ]
-      },
-      {
-        "id": "port-1790365098184",
-        "name": "The-Simpsons-Hit-and-Run",
-        "maintainer": "ZenoArrows",
-        "supportedPlatforms": [
-          "Nintendo Switch",
-          "PlayStation Vita"
+    },
+    {
+        "id": "zelda-majoras-mask",
+        "title": "The Legend of Zelda: Majora's Mask",
+        "icon": "https://media.retroachievements.org/Images/045842.png",
+        "plot": "After becoming the hero of Hyrule, Link stumbles into the enchanted land of Termina, where a falling moon will crush the world in three days.",
+        "media": [
+            {
+                "type": "video",
+                "youtubeUrl": "https://m.youtube.com/watch?v=fTv_p5hEu0A"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://s3.retroachievements.org/game/screenshots/130/1309502158/7ffa4538e32edc7f840445987bba8c8f78a74a52/7ffa4538e32edc7f840445987bba8c8f78a74a52-lg-webp.webp"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://d1lss44hh2trtw.cloudfront.net/assets/article/2014/11/12/MajorasMaskscreen_1200x500.jpg"
+            }
         ],
-        "about": {
-          "details": [
-            { "label": "Controls", "value": "Gamepad" },
-            { "label": "Version", "value": "0.6.1" },
-            { "label": "Requires OS", "value": "Custom Firmware" }
-          ]
-        },
-        "sources": [
-          {
-            "name": "GitHub Releases",
-            "subtext": "",
-            "badge": "",
-            "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run/releases",
-            "icon": "fa-brands fa-github"
-          }
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "2Ship2Harkinian",
+                "maintainer": "2ship2harkinian",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Windows",
+                    "Linux",
+                    "macOS"
+                ],
+                "about": {
+                    "summary": "",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": ""
+                        },
+                        {
+                            "label": "Version",
+                            "value": ""
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": ""
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/2ship2harkinian/2ship2harkinian",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            },
+            {
+                "id": "port-1790435666068",
+                "name": "2Ship2Harkinian-Android",
+                "maintainer": "linkzenic",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "5.0.1"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/linkzenic/2ship2harkinian-Android/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            },
+            {
+                "id": "port-1790436052350",
+                "name": "2ship2harkinian-Android",
+                "maintainer": "Waterdish",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "1.1.2P1"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/Waterdish/2ship2harkinian-Android/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    },
+    {
+        "id": "far-cry",
+        "title": "Far Cry",
+        "icon": "https://media.retroachievements.org/Images/157082.png",
+        "plot": "Jack Carver, a charter-boat businessman in Micronesia finds himself trapped on a mad scientist's private tropical island with ruthless mercenaries and worse.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://cdn.mobygames.com/screenshots/145918-far-cry-windows-rigor-mortis-1-looks-like-theres-something-missi.jpg"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "NearChuckle-android-edition",
+                "maintainer": "Player124413",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch"
+                        },
+                        {
+                            "label": "Version",
+                            "value": ""
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/Player124413/NearChuckle-android-edition/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "hotline-miami-redux-redux",
+        "title": "Hotline Miami: Redux-Redux",
+        "icon": "https://img.itch.zone/aW1hZ2UvMjI1NDYxLzExMDU1NTkuZ2lm/315x250%23c/bi3b1m.gif",
+        "plot": "In Hotline Miami Redux Redux, a veteran named Jacket massacres the Russian mafia in 1989 Miami due to cryptic phone calls. After a rival operative hospitalizes him, the story shifts to Biker, who is trying to escape the system. This mod confirms Biker survives his fight with Jacket and tracks the calls to a hidden bunker. There, he exposes 50 Blessings, a nationalist group staging the violence to spark a war between the US and the USSR.",
+        "media": [
+            {
+                "type": "video",
+                "youtubeUrl": "https://m.youtube.com/watch?v=h88_nia6if4"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img.itch.zone/aW1hZ2UvMjI0NjEwMy8yMTEwNDE2NC5wbmc=/original/f65b4u.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img.itch.zone/aW1hZ2UvMjI0NjEwMy8yMTEwNDE2NS5wbmc=/original/vlhM6l.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img.itch.zone/aW1hZ2UvMjI0NjEwMy8yMTEwNDE2Ni5wbmc=/original/LxkXxq.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img.itch.zone/aW1hZ2UvMjI0NjEwMy8yMTEwNDE2Ny5wbmc=/original/DUVPWH.png"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "Hotline Miami Redux-Redux",
+                "maintainer": "dalmac",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch"
+                        },
+                        {
+                            "label": "Version",
+                            "value": ""
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": ""
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "Telegram",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://t.me/dalmac_ports",
+                        "icon": "fa-brands fa-telegram"
+                    },
+                    {
+                        "name": "Discord",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://discord.com/invite/sEFvjKUKnV",
+                        "icon": "fa-brands fa-discord"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "banjo-kazooie",
+        "title": "Banjo Kazooie",
+        "icon": "https://raw.githubusercontent.com/izzy2lost/Lighthouse/refs/heads/android-port/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp",
+        "plot": "The witch Gruntilda has captured Banjo's beloved sister, intending to leech the girl's youth and beauty through black magic and mad science. Banjo and Kazooie set out across nine worlds to get her back.",
+        "media": [],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "Lighthouse",
+                "maintainer": "izzy2lost",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "Banjo Kazooie (N64 version) native port.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "1.0.2"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 7.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/izzy2lost/Lighthouse/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "zelda-twilight-princess",
+        "title": "The Legend of Zelda: Twilight Princess",
+        "icon": "https://cdn2.steamgriddb.com/icon/3eea4f9e7acb84e451bcfdfac2050fd7/32/256x256.png",
+        "plot": "When the Twilight Realm threatens to consume Hyrule, a young ranch hand named Link is transformed into a wolf. Teaming up with a mysterious imp named Midna, he sets out to restore light to the kingdom and defeat the usurper Zant. Their quest reveals that Zant is a puppet for the dark lord Ganondorf, whom Link and Midna ultimately destroy to save both worlds.",
+        "media": [
+            {
+                "type": "video",
+                "videoUrl": "https://twilitrealm.dev/videos/ordon_av1_actual.webm",
+                "thumbnail": "https://outlook.monmouth.edu/wp-content/uploads/sites/833/2021/12/legend-of-zelda-twilight-princess-grandma-grandmother-755-700-hour-gameplay-finish-complete-re-1210x642.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://twilitrealm.dev/_astro/shot-platform.Cp2I0l-W_2iAXE6.webp"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://twilitrealm.dev/_astro/shot-chainedwolf.tWdokXM-_Zmuj37.webp"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://twilitrealm.dev/_astro/shot-heartpiece.CXTCnfhq_2gsM0x.webp"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "dusklight",
+                "maintainer": "TwilitRealm",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Windows",
+                    "macOS",
+                    "Linux",
+                    "Android",
+                    "iOS"
+                ],
+                "about": {
+                    "summary": "Dusklight is a reverse-engineered reimplementation of Twilight Princess. It aims to be as accurate as possible to the original while also providing new options, enhancements, and tools to customize your experience.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "2.0.2"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": ""
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/TwilitRealm/dusklight/releases",
+                        "icon": "fa-brands fa-github"
+                    },
+                    {
+                        "name": "Official Website",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://twilitrealm.dev/",
+                        "icon": "fa-solid fa-globe"
+                    },
+                    {
+                        "name": "Official Discord",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://discord.gg/6NpMhefCK9",
+                        "icon": "fa-brands fa-discord"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "fallout1-ce",
+        "title": "Fallout",
+        "icon": "https://raw.githubusercontent.com/alexbatalov/fallout1-ce/refs/heads/main/os/ios/AppIcon.xcassets/AppIcon.appiconset/AppIcon.png",
+        "plot": "After being sent by the overseer of his vault to search for a new water purifying chip, the player discovers the horrors of post apocalyptic America, and the threat of the Master's Army.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BNzE3YjM4YTItODAyZC00NDMyLTkzMjQtOWVkNDM2YzUwNTk1XkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BYTM0NjdhZjItMjQ3YS00MmE2LTg4NjAtNjQxMmQwZjY3Mjg3XkEyXkFqcGc@._V1_FMjpg_UX640_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BNGUxZWY5MjEtMjFkYS00M2E3LWIwZmItZjQzYWQ3OGJlNmMwXkEyXkFqcGc@._V1_FMjpg_UX647_.jpg"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "Fallout Community Edition",
+                "maintainer": "alexbatalov",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Windows",
+                    "macOS",
+                    "Linux",
+                    "Android",
+                    "iOS"
+                ],
+                "about": {
+                    "summary": "Fallout Community Edition is a fully working re-implementation of Fallout, with the same original gameplay, engine bugfixes, and some quality of life improvements, that works (mostly) hassle-free on multiple platforms.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "1.1"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 5.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/alexbatalov/fallout1-ce/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "fallout2-ce",
+        "title": "Fallout 2",
+        "icon": "https://raw.githubusercontent.com/alexbatalov/fallout2-ce/refs/heads/main/os/ios/AppIcon.xcassets/AppIcon.appiconset/AppIcon.png",
+        "plot": "In a post-nuclear future, the descendant of an ancient exiled hero must leave his tribe in search of the Garden of Eden Creation Kit, the last chance of survival for his people.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BYjhkMGJjZWQtZmFlYS00YWY2LWFkODAtYzBlOGIxZWQ4ZjdjXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BZGI1MWM3ZTUtOWIyNi00MGYxLTk5MWItYjE4NzY3OGM1MTYxXkEyXkFqcGc@._V1_FMjpg_UX620_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BMDYxODM3NmUtYTEwNi00MmNhLWIyMzgtMzgyNWQxNmU3NzI1XkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BODdhOTQwMDEtMzdhOC00NGEzLWJjMTktNGIwNGU1OGU3NTU4XkEyXkFqcGc@._V1_FMjpg_UX1152_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BOGZhYWE5NTEtMjRiOS00NDRhLWE0MTktOTM2MzIyODk5NWVlXkEyXkFqcGc@._V1_FMjpg_UX1280_.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://m.media-amazon.com/images/M/MV5BYjQwZDUyNTMtNGVmYi00ZmMxLWI1MzYtMGM4MGYyZjVkYTM4XkEyXkFqcGc@._V1_FMjpg_UX600_.jpg"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "Fallout 2 Community Edition",
+                "maintainer": "alexbatalov",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Windows",
+                    "macOS",
+                    "Linux",
+                    "Android",
+                    "iOS"
+                ],
+                "about": {
+                    "summary": "Fallout 2 Community Edition is a fully working re-implementation of Fallout 2, with the same original gameplay, engine bugfixes, and some quality of life improvements, that works (mostly) hassle-free on multiple platforms.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "1.3"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 5.0+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/alexbatalov/fallout2-ce/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "valheim",
+        "title": "Valheim",
+        "icon": "https://raw.githubusercontent.com/udarmolota/ValDroid/refs/heads/main/app/src/main/res/drawable/valdroid_logo.png",
+        "plot": "Slain in battle, you have been carried to the tenth world. Here, in Valheim, you must conquer the realm and slay the monsters which Odin banished here long ago. Explore deep forests and freezing mountains, and build new settlements on the other side of vast seas  – and gain the Allfather’s favour to become worthy of Valhalla!",
+        "media": [
+            {
+                "type": "video",
+                "youtubeUrl": "https://youtu.be/BSrJRrlVQII"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/600x400/f/157036/1920x1080/15d8920edb/valheim3.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/600x400/f/157036/1920x1080/cb5e84b647/valheim2.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/1920x1080/f/157036/2560x1440/378da8af67/news-3.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/1920x1080/f/157036/2560x1440/3e50af8330/screenshot_2022-08-25_130834.png"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/1920x1080/f/157036/2560x1440/ed87ecf070/news-1.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://img2.storyblok.com/fit-in/1920x1080/f/157036/1920x1080/ac316c9018/6-buildinggui.png"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "ValDroid",
+                "maintainer": "udarmolota",
+                "badge": "Alpha",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "ValDroid is an unofficial, community-developed launcher that runs the native Linux x86_64 build of Valheim on ARM64 Android devices, with GPU rendering, touch controls and gamepad support.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "0.1.1"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 11+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/udarmolota/ValDroid/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "rayman-origins",
+        "title": "Rayman Origins",
+        "icon": "https://raw.githubusercontent.com/BelmanteGu/RaymanOriginsRecomp/refs/heads/main/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+        "plot": "An evil army of horrendous creatures and Darktoons approaches the Glade of Dreams, capturing the Electoons and plunging the world into chaos. Rayman and his friends escape and are then tasked by the Magician to restore the Glade of Dreams.",
+        "media": [
+            {
+                "type": "image",
+                "imageUrl": "https://raw.githubusercontent.com/BelmanteGu/RaymanOriginsRecomp/main/docs/media/android-s23-native-gameplay.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://raw.githubusercontent.com/BelmanteGu/RaymanOriginsRecomp/main/docs/media/android-s23-home.jpg"
+            },
+            {
+                "type": "image",
+                "imageUrl": "https://raw.githubusercontent.com/BelmanteGu/RaymanOriginsRecomp/main/docs/media/android-s23-native-combat.jpg"
+            }
+        ],
+        "defaultVariantId": "port-1",
+        "variants": [
+            {
+                "id": "port-1",
+                "name": "RaymanOriginsRecomp",
+                "maintainer": "BelmanteGu",
+                "badge": "",
+                "supportedPlatforms": [
+                    "Android"
+                ],
+                "about": {
+                    "summary": "An unofficial effort to statically recompile the Xbox 360 version of Rayman Origins into native code, first for desktop (macOS/Linux/Windows) and then for Android, using XenonRecomp.",
+                    "highlights": [],
+                    "details": [
+                        {
+                            "label": "Controls",
+                            "value": "Touch + Gamepad"
+                        },
+                        {
+                            "label": "Version",
+                            "value": "0.5.0"
+                        },
+                        {
+                            "label": "Requires OS",
+                            "value": "Android 10+"
+                        }
+                    ]
+                },
+                "sources": [
+                    {
+                        "name": "GitHub Releases",
+                        "subtext": "",
+                        "badge": "",
+                        "url": "https://github.com/BelmanteGu/RaymanOriginsRecomp/releases",
+                        "icon": "fa-brands fa-github"
+                    }
+                ]
+            }
+        ]
+    }
 ]
